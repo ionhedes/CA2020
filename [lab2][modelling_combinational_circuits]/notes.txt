@@ -1,0 +1,12 @@
+CONTINUOUS ASSIGNMENTS
+- <signal> = <expression>;
+- this instruction is continuously executed;
+- it is neither blocking, nor non-blocking, it is just executed continuously;
+- the left-hand term of the assignment is usually a wire signal;
+
+MODELLING COMBINATIONAL CIRCUITS
+ - use assign <signal> = <expression> for combinational circuits;
+ - use always @(*) blocks - they are executed wherever a signal which appears within the block in a right-hand term changes value;
+	- if using assign blocks, make sure they only use BLOCKING assignments;
+ - take care at the left-hand term of the assignment - even though we are dealing with combinational logic, we are still using
+procedural assignments, hence we need a this signal to be declared as reg;

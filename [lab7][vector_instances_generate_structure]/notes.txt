@@ -1,0 +1,34 @@
+INSTANCE VECTORS
+ - as there are signal vectors (with a bit width > 1), there are also instance vectors, with multiple instances of a module;
+ - they are useful for quickly creating multiple instances of the same module, when all the instances are connected to the same signals;
+	- verilog is so smart as to split an B bit signal into B/N parts and connect it to N instances (B - number of bits of the signal, N - number of instances) if N > B;
+	- if N == B, the signal is connected to all the instances;
+ - how to define an instance vector:
+	<module_name> #(.<param>(<actual_param>)) <instance_name> [<hi_index>: <lo_index>] (.<port>(<container>));
+ - using this method is not encouraged;
+
+GENERATE STRUCTURE
+ - a better way of mass instancing modules and not only;
+ - a generate structure can:
+	- instance modules;
+	- generate initial/always blocks;
+	- make assignments;
+	- declare signals;
+ - this structure uses a for loop with a special type of iterator for controlling the flow inside the structure (it can also contain other instructions, e.g. if/else,
+but a for loop is strictly necessary);
+ - the for loop MUST have a name. WHY?
+	- let's say every iteration of the for loop creates a new instance of a module called simply <instance>;
+	- you cannot code the for loop to give different names for each iteration (at least not directly);
+	- then how is the verilog compiler able to differentiate between them?
+	- using the name you give it, the instances are split into different levels in a hierarchy,
+	so the compiler will be able to set them apart;
+	e.g. an instance called ELEPHANT created at the second iteration of the loop called ROUNDABOUT will be referred to as
+	     ROUNDABOUT [2-1].ELEPHANT;
+ - structure of a generate block:
+	generate
+		genvar i; // that special type of iterator;
+		for (...) begin: <name_of_loop>
+			... do whatever you wish here ...
+		end
+	endgenerate // do not forget this please; 
+		

@@ -1,0 +1,14 @@
+HANDSHAKE SIGNALLING BETWEEN MODULES
+ - enables different modules, possibly working at different frequencies, to transfer information between them without loss;
+ - we have four situations here:
+	- the producer and consumer work on the same clock signal, for every clock cycle the producer generates data and the consumer processes it:
+		- no handshake needed;
+	- the producer cannot keep up with the rate at which the consumer processes data:
+		- the producer will have a VALID output to signal when new data is generated;
+		- the consumer listens to this signal and waits for the data to be ready before taking it in;
+	- the consumer cannot keep up with the rate at which the producer generates data:
+		- the consumer will have a READY output to signal when new data is ready to be processed;
+		- the producer listens to this signal and waits for the consumer to be ready before feeding it data;
+	- both the producer and the consumer need time to process data:
+		- the consumer will have a READY output;
+		- the producer will have a VALID output;

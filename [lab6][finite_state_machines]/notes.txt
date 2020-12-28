@@ -1,0 +1,30 @@
+FINITE STATE MACHINES
+ - a way of describing processes involving a finite number of variables and states using graphs;
+ - defined by:
+	- inputs - variables which alter the state and the output of the machine;
+	- states;
+	- transitions between states;
+	- outputs;
+ - two types of FSMs:
+	- Mealy: the output is a determined based on the current state and the current input;
+	- Moore: the output is determined based on the current state of the machine;
+
+IMPLEMENTING FSMs in VERILOG
+ - step 1:
+	- create constants for each state of the machine and give them distinct values (there are different methods
+	of naming the states, e.g. ONE HOT);
+	e.g. localparam S0_ST = 2'd0; // it is good practice to include the _ST suffix in the names;
+ - step 2:
+	- define signals for the current state and the next state:
+		- the st_nxt signal is determined using combinational logic;
+		- the st_crt signal is assigned inside a sequential logic block, so it must be declared as reg;
+ - step 3:
+	- create the combinational block which will determine the next state based on the state transitions;
+	- hint: use switch case expressions for each st_crt;
+	! - every state+input combination must be treated in code to make sure we don't end up in an undefined state;
+ - step 4:
+	- create the combinational block which will determine the output of the machine;
+	- before determining the output, its container/wire is defaulted to 0, as a good practice;
+ - step 5:
+	- create the sequential block where the state of the machine is updated to the next state;
+	- this block is triggered by a clock signal, or by a reset signal;

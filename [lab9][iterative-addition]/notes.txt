@@ -1,0 +1,10 @@
+ITERATIVE ADDITION
+ - useful for multi-operand addition;
+ - useful for multiplication;
+ - based on sequential 2-part algorithms:
+	- part 1: 
+		- stores the current state of the module to be used in the next state;
+		- the memory part so we can add multiple times;
+	- part 2:
+		- updates the current state by adding the current input to it, resulting the next state;
+		- the addition part;

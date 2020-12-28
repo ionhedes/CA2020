@@ -1,0 +1,24 @@
+DATA PATH
+ - performs all the required operations
+ - no decisions are made in the data path (e.g. no if/elses)
+ - usual components:
+	- Arithmetic & Logic Units (ALU);
+	- registers, internal buses;
+	- multiplexers;
+
+CONTROL PATH
+ - makes decisions based on the informations given by the data path;
+ - usually designed as a Finite State Machine (FSM);
+
+TRI-STATE DRIVERS
+ - you may find yourself in situations where you have a single available line where to feed data into from different sources;
+ - tri-state drivers enables multiple lines to be fed into the same line, one at a time, without affecting each other;
+	 - if you think about it, there are some resemblances to a multiplexer here;
+ - a TSD has 2 inputs, one ENABLE port, and one DATA port, and one output;	
+	- when the ENABLE line is HIGH, OUT will have the same value as DATA;
+	- when the ENABLE line is LOW, OUT will have the value z - high impedance;
+
+HIGH IMPEDANCE
+ - electronics-wie, high impedance means there is little to no current flow through a line;
+ - for logic components, this may very well mean that the HI-Z line is not connected to the logic module, enabling
+other components to connect to a wire and drive it;

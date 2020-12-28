@@ -1,0 +1,11 @@
+DESCRIBING FSM STATES IN A ONE-HOT MANNER
+ - for every state of the machine, there is a 1-bit storage device (e.g. FF);
+ - the value stored inside a storage device will be 1 ONLY when the machine is in the state represented by it - all other devices must store 0 at that time;
+ - examples of ONE-HOT codes for states:
+	001
+	010
+	100
+    !!! 101 is not a valid ONE-HOT code;
+ - it is easier to work with ONE-HOT FSMs because their debugging is easier, but they may prove themselves more cost inefficient because of the high number of
+   storage elements;
+ - all the other implementation details regarding FSMs are the same, only the state nomenclature differs;

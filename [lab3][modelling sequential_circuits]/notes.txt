@@ -1,0 +1,18 @@
+ALWAYS AND INITIAL BLOCKS
+ - are not executed continuously, like the assign instructions;
+ - initial blocks are only executed once, after the simulation starts
+ - always blocks are triggered by certain signals, given in a sensitivity list:
+	- they can be triggered by the value of a signal (e.g. a signal is 1, so no the block is executed);
+	- they can also be triggered by the change in the value of a signal (e.g. the signal changes from 0 to 1, or 1 to 0);
+	- NEVER can a block be triggered by these two different types of sensitivities at the same time;
+ - instructions in these blocks are called PROCEDURAL ASSIGNMENTS, which are executed sequentially or at the same time based on their type:
+	- if the instructions are BLOCKING assignments (e.g. <reg_name> = <expression>), they will be executed sequentially;
+	- if the instructions are NONBLOCKING assignments (e.g. <reg_name> <= <expression>), they will be executed in parallel;
+ - if the right-hand side of an procedural assignment has less bits than the left-hand side, it will be extended with 0 bits in the most
+significant locations;
+
+MODELLING SEQUENTIAL CIRCUITS
+ - only use NONBLOCKING assignments in blocks;
+ - take care to use the appropiate type of trigger for the circuit:
+	- level trigger - for latches (e.g. always @(<sign_1>, <sign_2>, ...)); 
+	- front trigger - for flip-flops, registers (e.g. always @(posedge <sign_1>, negedge <sign_2>, ...));

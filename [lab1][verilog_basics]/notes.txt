@@ -1,0 +1,95 @@
+SIGNALS 
+- wire - like physical wires, they can connect different module ports;
+	- they value can be read or assigned, by assign instructions or by the ports of the module they are connected to;
+	- if by any chance, there is no value assigned to them, they will not retain the last valid value until a new one arrives (they must be continuously driven by something);
+- reg 	- unlike wires, which cannot hold values, regs do not need to be continuously driven;
+	- they retain their last valid value until a new one is provided;
+	- used as outputs of memory sequential units (register, flip flop, ...);
+- vectors - composite signal (multiple wires/regs) ex: wire [7:0] vect - a wire vector of width 8 bits;
+
+MODULES
+- the nucleus of hardware description languages;
+- piece of code which can do a certain task - can be built to be integrated and synthesized in complex architectures;
+- has a list of inputs and outputs;
+- how to declare one:
+	<module_name> #(
+		.
+		.
+		<list_of_parameters_and_their_default_values
+		.
+		.
+	)(
+		.
+		.
+		<list _of_inputs_and_outputs>
+		.
+		.	
+	);
+		.
+		.
+		<code_inside_the_module>
+		.
+		.
+	endmodule
+ - modules can be used/implemented inside other modules to create more complex modules;
+ - when instancing a module inside another use:
+	<module_name> #(.<param>(<param_actual_value>), ...) <instance_name>(.<module_port>(<container_signal>), ...);
+	- container signals are wires almost everytime - they connect different ports of modules and are permanently driven;
+
+OPERATORS
+ - conditional operator (like an if/else block): <signal_name> = (<expression_to_be_evaluated>) ? <expression_if_true> : <expression_if_false>;
+ - you can select a part of signals from a vector using the PART-SELECT operator: [<hi_index>: <lo_index>];
+ - you can concatenate different signals using the CONCATENATION operator: {<sign_1>, <sign_2>, ..., <sign_n>};
+ - you can replicate an expression using the REPLICATION operator: {<number_of_replication> {<expression_to_be_replicated>}}
+ - binary operators (~, &, |, ^, ^~(XNOR));
+ - reduction operators (unary &, unary |, unary ^, unary ^~) - will apply the operator to all the bits of the signal and return a 1bit signal;
+ - logic operators (!, &&, ||);
+ - shift operators:
+	- bit shifts (<<, >>) (do not take into consideration the sign bit);
+	- arithmetic (<<<, >>>) (take into consideration the sign bit);
+ - relational operators (<, >, <=, >=, ==, !=);
+ - case equality operators (===, !==);
+	- usually, verilog regs have 4 states (0, 1, x - undefined, z - high impedance);
+	- when using the normal equality operators, x or z bits determine the result of the operation to be x - undefined;
+	- using case equality operator compares the equality of the bits, even if they are in a z or x state;
+ - the format of constants: <bit_width>'<radix_specifier><value> - usually declared of type localparam;
+ - the delay operator #: use #<number_of_time_units> to delay the execution with the given number of time units;
+
+INSTRUCTIONS
+ - if/else - same as in C;
+ - case:
+	case (<expression>)
+		<case_value_1> : <expression_1>;
+		.
+		.
+		<case_value_n> : <expression_n>;
+		default: <expression_default>
+	endcase
+ - loop instructions:
+	- repeat:
+		repeat (<number_of_times>) <expression>;
+	- forever:
+		forever <expression>;
+	- for - same as in C;
+	- while - same as in C;
+
+FUNCTIONS
+ - verilog benefits from functions as well;
+ - they have a strong resemblance to C functions (e.g. <function_name>(<argument_list>) - a function header);
+ - there is no return instruction, so for non-void functions, the returned value is thrown back with:
+	<function_name> = <ret_val>;
+ - when calling them from a module, use $<function_name>(<argument_list>);
+ - some useful predefined functions:
+	- display - a.k.a. printf;
+	- monitor - a smarter printf, it will call itself everytime a signal given to it as parameter changes values
+		  - it does not need a for to run multiple times;
+
+!!! IMPORTANT: whenever <expression> is made up of multiple instructions, they need to be enclose in a 
+	begin
+		.
+		.
+		<expressions>
+		.
+		.
+	end
+block (this holds for any type of block, loop, statement in verilog);

@@ -1,0 +1,22 @@
+TESTBENCHES
+ - are used to test modules, in any way the developer wants;
+ - a testbench is defined as a module with no ports or parameters, tasked with instancing the
+Unit Under Test (the module we want to test) and generating signals, which when fed into the UUT
+determine behaviours that can be observed;
+
+HOW TO CREATE A TESTBENCH MODULE
+ - create a module with the name <uut_name_TB>, with no params or ports;
+ - define the constants which will be needed, if necessary (number of clock cycles to run the test for, clock cycle duration, etc)
+ - for every input port of the UUT, create a reg local signal inside the testbench module;
+	- these are signals that will be fed as inputs to the UUT;
+ - for every output port of the UUT, create a wire local signal inside the testbench module;
+	- these are the signals which will give us informations about the outputs of the module;
+ - create an instance for the UUT with the previousl stated signals as containers;
+ - generate the driving signals for the UUT:
+	- usualy every input is generated in an initial block which has a loop with delay instruction inside;
+		e.g. initial begin
+			clk = 1'd0; // init value;
+			repeat (TIMES) #(CLK_PERIOD / 2) clk = ~clk;
+		     end
+ - in an initial block, use the monitor function to print the values of the input/ouput ports of the UUT, as they change; 
+			

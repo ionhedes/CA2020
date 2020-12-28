@@ -1,0 +1,35 @@
+CORDIC ARCHITECTURES
+ - used for approximating the cosine function;
+ - CORDIC is an interative algorithm, which continuously approaches the value of cos(theta), where theta is given;
+ - theta belongs to [-pi/2, pi/2] (ask about this, seems shabby);
+
+
+STATE VARIABLES
+ - CORDIC alchitectures have 4 state variables:
+	- i - the index of the current CORDIC round (iteration);
+	- Xi, Yi - the coordinates on the unit circle at step i, they belong to [-1; 1] - initially (X0, Y0) = (<depends_on_bit_width>, 0);
+	- Zi - the angular error at step i - initially Z0 = theta;
+ - each state variable is stored in a memory unit (like a register);
+ - each state variable needs an Addition/Substraction block and an Arithmetic Shift block for computing the next round;
+
+
+STATE VARIABLES FORMAT
+ - CORDIC works with signed values, with fixed point (because floating point operations are expensive);
+	- !!! verilog treats the vectors used in the CORDIC method as INTEGERS, so conversions are needed;
+ - the bit width depends on the precision we need when approximating - n bits width for (n-1) precision of cos(theta);
+ - the bit width of the state variables is equal to the number of CORDIC rounds (?);
+ - e.g. 16-bit CORDIC round - (16-1) decimal bits approximation precision:
+	- in VERILOG format, the state variables are 16-bit integers;
+	- their CORDIC format is: {1b - sign, 1b - integer part, 14b - decimal part};
+	- conversions:
+		- from VERILOG format to CORDIC format: floor(VAL * 2^14);
+		- from CORDIC format to VERILOG format: VAL / 2^14 and keep the most significant 14 bits after the point;
+
+COMPUTING CORDIC ROUNDS
+ - for every round/step/iteration, these are the state equations:
+	- 1: X[i+1] = X[i] -+ (Y[i] >>> i);
+	- 2: Y[i+1] = Y[i] +- (X[i] >>> i);
+	- 3: Z[i+1] = Z[i] -+ atan(2^(-i));
+	- ! if Z[i] >= 0, use the first sign in the equations, else use the second;
+ - atan(2^(-i)) are constants which will be stored in a READ-ONLY-MEMORY module;
+ - at the end of the procedure, X_end will represent cos(theta) in VERILOG format - it needs to be converted to the CORDIC format;
