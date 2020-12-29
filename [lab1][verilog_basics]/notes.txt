@@ -6,6 +6,7 @@ SIGNALS
 	- they retain their last valid value until a new one is provided;
 	- used as outputs of memory sequential units (register, flip flop, ...);
 - vectors - composite signal (multiple wires/regs) ex: wire [7:0] vect - a wire vector of width 8 bits;
+	  - when declaring vectors, their boundaries must be constant (e.g. literal numbers, parameters, localparams..);
 
 MODULES
 - the nucleus of hardware description languages;
@@ -45,8 +46,8 @@ OPERATORS
  - reduction operators (unary &, unary |, unary ^, unary ^~) - will apply the operator to all the bits of the signal and return a 1bit signal;
  - logic operators (!, &&, ||);
  - shift operators:
-	- bit shifts (<<, >>) (do not take into consideration the sign bit);
-	- arithmetic (<<<, >>>) (take into consideration the sign bit);
+	- bit shifts (<<, >>) (do not take the sign bit into consideration);
+	- arithmetic (<<<, >>>) (take the sign bit into consideration);
  - relational operators (<, >, <=, >=, ==, !=);
  - case equality operators (===, !==);
 	- usually, verilog regs have 4 states (0, 1, x - undefined, z - high impedance);
@@ -78,11 +79,17 @@ FUNCTIONS
  - they have a strong resemblance to C functions (e.g. <function_name>(<argument_list>) - a function header);
  - there is no return instruction, so for non-void functions, the returned value is thrown back with:
 	<function_name> = <ret_val>;
- - when calling them from a module, use $<function_name>(<argument_list>);
+ - when calling predefined functions from a module, use $<function_name>(<argument_list>);
  - some useful predefined functions:
 	- display - a.k.a. printf;
 	- monitor - a smarter printf, it will call itself everytime a signal given to it as parameter changes values
 		  - it does not need a for to run multiple times;
+ - functions must be called inside expressions, not standalone (i believe);
+ - verilog also supports tasks, a special types of functions:
+	- synthax:
+		task <task_name> (<inout_ports>); <task_body> endtask;
+	- has a synthax similar to modules;
+	- must be placed inside modules;
 
 !!! IMPORTANT: whenever <expression> is made up of multiple instructions, they need to be enclose in a 
 	begin

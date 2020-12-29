@@ -32,4 +32,13 @@ COMPUTING CORDIC ROUNDS
 	- 3: Z[i+1] = Z[i] -+ atan(2^(-i));
 	- ! if Z[i] >= 0, use the first sign in the equations, else use the second;
  - atan(2^(-i)) are constants which will be stored in a READ-ONLY-MEMORY module;
+ - with each round, the angular error Z is reduced -> the approximation of cos is fine-tuned;
+	- each CORDIC round is associated to a bit in the decimal representation:
+		i = 1 -> bit of weight 2^(-1) of cos(theta) is generated;
+		.
+		.
+		.
+		i = n -> bit of weight 2^(-n) of cos(theta) is generated;
+	- the angular error is corrected based on the weight of the round;
+	- more available bits in the representation -> more CORDIC rounds -> much better accuracy in approximating cos(theta)
  - at the end of the procedure, X_end will represent cos(theta) in VERILOG format - it needs to be converted to the CORDIC format;

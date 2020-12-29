@@ -10,6 +10,7 @@ ALWAYS AND INITIAL BLOCKS
 	- if the instructions are NONBLOCKING assignments (e.g. <reg_name> <= <expression>), they will be executed in parallel;
  - if the right-hand side of an procedural assignment has less bits than the left-hand side, it will be extended with 0 bits in the most
 significant locations;
+ - the right-hand side term of a procedural assignment is always of type reg;
 
 MODELLING SEQUENTIAL CIRCUITS
  - only use NONBLOCKING assignments in blocks;

@@ -22,6 +22,7 @@ but a for loop is strictly necessary);
 	- then how is the verilog compiler able to differentiate between them?
 	- using the name you give it, the instances are split into different levels in a hierarchy,
 	so the compiler will be able to set them apart;
+	- this holds for any block where you want to declare local variables;
 	e.g. an instance called ELEPHANT created at the second iteration of the loop called ROUNDABOUT will be referred to as
 	     ROUNDABOUT [2-1].ELEPHANT;
  - structure of a generate block:
