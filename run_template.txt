@@ -32,9 +32,9 @@ vsim -voptargs=+acc main
 #            number of time units, replace "-all" in the 
 #            command bellow with that number
 #            Example: <<run 1500>>
-run -all
+# run -all
 
 # ends simulation without leaving the Modelsim environment
 # IMPORTANT: if you need to analyze the waveforms or to debugg
 #            the design, then comment the next line
-quit -sim
+# quit -sim
