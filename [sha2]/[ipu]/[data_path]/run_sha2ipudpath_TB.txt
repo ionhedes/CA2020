@@ -6,7 +6,7 @@ vlib work
 # add all your source files here: add them to the
 # "sourcefiles list", separated by spaces
 # Example: <<set sourcefiles {mux_1s.v mux_2s.v mux2s_tb.v}>>
-set sourcefiles {main.v}
+set sourcefiles {rgst.v dec.v regfl.v pktmux.v cntr.v sha2ipudpath.v sha2ipudpath_TB.v}
 
 # run the compiler
 if [catch "eval vlog $sourcefiles"] {
@@ -19,7 +19,7 @@ if [catch "eval vlog $sourcefiles"] {
 # the name of the module that need to be simulated
 # IMPORTANT: use the name of the module to be simulated
 #            not the name of the source file of that module
-vsim -voptargs=+acc main
+vsim -voptargs=+acc sha2ipudpath_TB
 
 # add all signals in the top module to the wave window
 # IMPORTANT: if the top module contains inputs, outputs
