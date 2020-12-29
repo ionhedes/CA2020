@@ -1,0 +1,40 @@
+# empty the work library if present
+if [file exists "work"] {vdel -all}
+#create a new work library
+vlib work
+
+# add all your source files here: add them to the
+# "sourcefiles list", separated by spaces
+# Example: <<set sourcefiles {mux_1s.v mux_2s.v mux2s_tb.v}>>
+set sourcefiles {pktmux.v pktmux_TB.v}
+
+# run the compiler
+if [catch "eval vlog $sourcefiles"] {
+    puts "correct the compilation errors"
+    return
+}
+
+# start the simulation by invoking the vsim command
+# replace "main" at te end of the command bellow with
+# the name of the module that need to be simulated
+# IMPORTANT: use the name of the module to be simulated
+#            not the name of the source file of that module
+vsim -voptargs=+acc pktmux_TB
+
+# add all signals in the top module to the wave window
+# IMPORTANT: if the top module contains inputs, outputs
+#            and any signals that need to be debugged, 
+#            then uncomment the next line
+# add wave *
+
+# run the simulation until no event takes place anymore
+# IMPORTANT: if the simulation needs to be run for a specific
+#            number of time units, replace "-all" in the 
+#            command bellow with that number
+#            Example: <<run 1500>>
+# run -all
+
+# ends simulation without leaving the Modelsim environment
+# IMPORTANT: if you need to analyze the waveforms or to debugg
+#            the design, then comment the next line
+# quit -sim
