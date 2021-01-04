@@ -1,0 +1,25 @@
+digraph finite_state_machine {
+	rankdir=LR;
+	size="100,60";
+	init [shape=point,fillcolor=red];
+	S_D2[label="S_D2",shape=doublecircle];
+	S_R5[label="S_R5",shape=circle];
+	S_K4[label="S_K4",shape=circle];
+	S_A2[label="S_A2",shape=circle];
+	S_U9[label="S_U9",shape=circle];
+	init -> S_D2[fillcolor=red];
+	S_R5->S_A2[label="I6|~A5/u8"];
+	S_R5->S_D2[label="A5&~I6/u5"];
+	S_K4->S_D2[label="A5&~I6/"];
+	S_K4->S_K4[label="False/O3"];
+	S_K4->S_U9[label="I6|~A5/O3,O4,u5,u8"];
+	S_A2->S_A2[label="A5|I6/u8,O3,u5"];
+	S_A2->S_D2[label="~A5&~I6/"];
+	S_A2->S_R5[label="False/O4,u5"];
+	S_D2->S_U9[label="~A5&~I6/O3"];
+	S_D2->S_U9[label="False/O4,O3,u8,u5"];
+	S_D2->S_A2[label="A5|I6/u5,O3,u8"];
+	S_U9->S_U9[label="A5|~I6/u5"];
+	S_U9->S_D2[label="False/O3"];
+	S_U9->S_D2[label="I6&~A5/u5"];
+}

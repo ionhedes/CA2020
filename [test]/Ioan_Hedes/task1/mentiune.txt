@@ -1,0 +1,3 @@
+la schema pe foaie a starilor am desenat intrarile gresit, si cand am realizat era prea tarziu ca sa o refac.
+asa ca am inclus in fisier simulare cu stari din modelsim.
+va rog sa ma scuzati.-
